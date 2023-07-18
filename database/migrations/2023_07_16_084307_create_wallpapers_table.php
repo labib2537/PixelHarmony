@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('wallpapers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('wallpaper_name');
             $table->string('category');
             $table->string('image');

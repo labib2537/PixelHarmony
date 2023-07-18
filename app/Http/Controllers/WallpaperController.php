@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Wallpaper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Uuid;
 
 class WallpaperController extends Controller
 {
@@ -14,6 +17,7 @@ class WallpaperController extends Controller
     public function store(Request $request)
     {
          $wallpaper = new Wallpaper;
+         $wallpaper->uuid = chr(rand(65, 90)) . Str::random(31);
          $wallpaper->wallpaper_name = $request->wp_name;
          $wallpaper->category = $request->category;
          if($request->hasFile('image')){
@@ -37,30 +41,38 @@ class WallpaperController extends Controller
 
     
     // display by php procedure
+    // public function display()
+    // {
+    //     $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
+    //     return view('user.view', compact('wallpapers'));
+    // }
+
     public function display()
     {
-        $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
-        return view('user.view', compact('wallpapers'));
+        // $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
+        return view('user.view');
     }
 
 
 
-    // public function search(Request $request)
-    // {
-    //     $wallpaper = Wallpaper::where('wallpaper_name', 'like', '%'.$request->search.'%')      
-    //                ->orderBy('id', 'desc')
-    //                ->get();
+    // Ajax live search
+    public function search(Request $request)
+    {
+        $wallpaper = Wallpaper::where('wallpaper_name', 'like', '%'.$request->search.'%')
+                   ->orWhere('category','like','%'.$request->search.'%')       
+                   ->orderBy('id', 'desc')
+                   ->get();
 
-    //     if($wallpaper->count()>=1)
-    //     {
-    //         return response()->json($wallpaper);
-    //     }else{
-    //         return response()->json([
-    //             'status' => 250
-    //         ]);
-    //     }           
-    // }
-
+        if($wallpaper->count()>=1)
+        {
+            return response()->json($wallpaper);
+        }else{
+            return response()->json([
+                'status' => 250
+            ]);
+        }           
+    }
+    // optional: php method
     public function searchWallpaper(Request $request)
     {
         $search = $request->searchInput;
@@ -69,5 +81,16 @@ class WallpaperController extends Controller
                                 ->get();
         return view('user.view', compact('wallpapers'));
 
+    }
+
+    public function delete(Request $request)
+    {
+        $wallpaper = Wallpaper::find($request->id);
+        $imagePath = public_path('uploads/'.$wallpaper->image);
+        if(file_exists($imagePath))
+        {
+            unlink($imagePath);
+        }
+        $wallpaper->delete();
     }
 }

@@ -24,3 +24,4 @@ Route::get('/user/allWallpaper', [WallpaperController::class, 'fetchAllData'])->
 Route::get('/user/all_wallpaper', [WallpaperController::class, 'display'])->name('display_wallpaper');
 Route::get('user/search', [WallpaperController::class, 'search'])->name('search');
 Route::get('user/searchWallpaper', [WallpaperController::class, 'searchWallpaper'])->name('search_wallpaper');
+Route::post('/user/delete', [WallpaperController::class, 'delete'])->name('delete_wallpaper');
