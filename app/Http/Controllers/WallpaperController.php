@@ -18,6 +18,7 @@ class WallpaperController extends Controller
     {
          $wallpaper = new Wallpaper;
          $wallpaper->uuid = chr(rand(65, 90)) . Str::random(31);
+         $wallpaper->user_id = auth()->user()->id;
          $wallpaper->wallpaper_name = $request->wp_name;
          $wallpaper->category = $request->category;
          if($request->hasFile('image')){
@@ -39,6 +40,12 @@ class WallpaperController extends Controller
         return response()->json($wallpapers);
     }
 
+    public function fetchMyData()
+    {
+        $wallpapers = Wallpaper::where('user_id', auth()->user()->id )->orderBy('id', 'desc')->get();
+        return response()->json($wallpapers);
+    }
+
     
     // display by php procedure
     // public function display()
@@ -51,6 +58,14 @@ class WallpaperController extends Controller
     {
         // $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
         return view('user.view');
+    }
+
+    
+
+    public function displayMyWallpaper()
+    {
+        // $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
+        return view('user.myView');
     }
 
 

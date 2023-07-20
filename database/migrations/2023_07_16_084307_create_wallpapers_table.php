@@ -14,10 +14,16 @@ return new class extends Migration
         Schema::create('wallpapers', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->unsignedBigInteger('user_id');
             $table->string('wallpaper_name');
             $table->string('category');
             $table->string('image');
             $table->timestamps();
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
+
         });
     }
 
