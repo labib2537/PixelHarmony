@@ -93,4 +93,24 @@ class WallpaperController extends Controller
         }
         $wallpaper->delete();
     }
+
+    public function edit(Request $request)
+    {
+        $wallpaper = Wallpaper::find($request->id);
+        return response()->json($wallpaper);
+    }
+
+    public function update(Request $request)
+    {
+        $wallpaper = Wallpaper::find($request->id);
+         $wallpaper->uuid = $request->uuid;
+         $wallpaper->wallpaper_name = $request->wp_name;
+         $wallpaper->category = $request->category;
+         $wallpaper->update();
+         return response()->json([
+            'status' => 200
+         ]);
+        
+    }
+
 }

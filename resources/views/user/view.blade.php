@@ -15,6 +15,74 @@
 </div>
 {{-- </form> --}}
 
+<!-- edit form -->
+<div id="modal_edit_wallpaper" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Edit</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+                            
+                            <form action="#" method="post" id="edit_data" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" class="form-control" name="id" id="id" required>
+                                    <input type="hidden" class="form-control" name="uuid" id="uuid" required>
+									<div class="modal-body">
+                                        <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-sm-12 col-md-6">
+                                        <div class="form-group">
+										<label>Wallpaper Name:</label>
+										<input type="text" name="wp_name" class="form-control" placeholder="EX: Blue Beautiful Bird" id="name" required>
+									</div>
+                                        </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-group">
+										<label>Wallpaper Category:</label>
+                                        <select name="category" data-placeholder="Select your wallpaper category" class="form-control form-control-select2" id="category" data-fouc required>
+											<option></option>
+											
+												<option>Nature's Beauty</option>
+												<option>Urban Landscapes</option>
+												<option>Abstract Art</option>
+												<option>Inspirational Quotes</option>
+												<option>Minimalist Designs</option>
+												<option>Animal Kingdom</option>
+												<option>Fantasy Worlds</option>
+												<option>Vintage Vibes</option>
+												<option>Space and Astronomy</option>
+												<option>Travel and Adventure</option>
+												<option>Hill and Mountain</option>
+												<option>Architectural Wonders</option>
+												<option>Ocean and river</option>
+                                                <option>Bird Kingdom</option>
+                                                <option>Floral Delights</option>
+												<option>Colorful Creations</option>
+												<option>Medical and Chemical</option>
+												<option>Celebrities and Icons</option>
+                                                <option>Digital Art</option>
+												<option>Technology and Gadgets</option>
+												<option>Sports and Fitness</option>
+										</select>
+
+									</div>
+                                    </div>
+                                </div>
+
+                                        </div>
+                                    </div>
+                                    
+								<div class="modal-footer">
+									<button type="submit" id="update_btn" class="btn bg-orange ml-3 legitRipple"><i class="icon-checkmark3 mr-2"></i>Save</button>
+								</div>
+				</form>
+                            
+
+                </div>
+            </div>
+        </div>
+<!-- end edit form -->
 
 <!-- <div id="searchResults" class="list-group search-results"></div> -->
 
@@ -84,7 +152,7 @@
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
                     wp += `<span class="badge badge-warning" style="position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">${wallpaper.category}</span>`
                     wp +=  `<button type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1" data-toggle="modal" data-target="#${wallpaper.uuid}"><i class="icon-eye"></i> </button>`
-                    wp +=  `<button type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1" data-toggle="modal" data-target="#${wallpaper.uuid}"><i class="icon-pencil"></i> </button>`
+                    wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple editWallpaper m-1" id="${wallpaper.id}" data-toggle="modal" data-target="#modal_edit_wallpaper"><i class="icon-pencil"></i> </button>`
                     wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple deleteWallpaper m-1" id="${wallpaper.id}"><i class="icon-trash"></i> </button>`
                     wp +=  '</div>'
                     wp +=  '</div>'
@@ -141,7 +209,9 @@
                     wp += '<div class="card-img-actions">'
                     wp += `<img class="card-img-top img-fluid" src="{{ asset('uploads') }}/${wallpaper.image}" alt="${wallpaper.wallpaper_name}">`
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
+                    wp += `<span class="badge badge-warning" style="position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">${wallpaper.category}</span>`
                     wp +=  `<button type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1" data-toggle="modal" data-target="#${wallpaper.uuid}"><i class="icon-eye"></i> </button>`
+                    wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple editWallpaper m-1" id="${wallpaper.id}" data-toggle="modal" data-target="#modal_edit_wallpaper"><i class="icon-pencil"></i> </button>`
                     wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple deleteWallpaper m-1" id="${wallpaper.id}"><i class="icon-trash"></i> </button>`
                     wp +=  '</div>'
                     wp +=  '</div>'
@@ -202,6 +272,71 @@
           }
         });
         });
+
+          // edit wallpaper info
+
+          $(document).on('click', '.editWallpaper', function(e){
+          e.preventDefault();
+          let id = $(this).attr('id');
+          $.ajax({
+            method: "post",
+            url: '{{ route('edit_wallpaper') }}',
+            data:{
+                id: id,
+                _token: '{{ csrf_token() }}'
+               },
+            success: function(wallpaper){
+              console.log(wallpaper);
+              $('#id').val(wallpaper.id);
+              $('#uuid').val(wallpaper.uuid);
+              $('#name').val(wallpaper.wallpaper_name);
+              $('#category').val(wallpaper.category).trigger('change');
+            }
+
+          })
+        }); 
+
+        //update wallpaper
+
+        $("#edit_data").submit(function(e){
+            e.preventDefault();
+            const fd = new FormData(this);
+            var editButton = $('#update_btn');
+            editButton.addClass('disabled').attr('disabled', true).text('Saving...');
+            $.ajax({
+                method: "post",
+                url: '{{ route('update_wallpaper') }}',
+                data: fd,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(res){
+
+                    if(res.status==200){
+                        swal.fire(
+                            'Updated!',
+                            'Wallpaper Updated Successfully',
+                            'Success'
+                        );
+                    }
+                    
+                    $('#modal_edit_wallpaper').modal('hide');
+                    editButton.removeClass('disabled').attr('disabled', false).html('<i class="icon-checkmark3 mr-2"></i>Save');
+                    fetchAllWallpaper();
+
+                }
+
+            });
+        });
+
+
+
+
+
+
+
+        
+
 
 
 
