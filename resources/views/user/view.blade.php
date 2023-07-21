@@ -81,6 +81,26 @@
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
                     wp += `<span class="badge badge-warning" style="position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">${wallpaper.category}</span>`
                     wp +=  `<button type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1" data-toggle="modal" data-target="#${wallpaper.uuid}"><i class="icon-eye"></i> </button>`
+                    wp += `<a href="{{ asset('uploads') }}/${wallpaper.image}" download class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1"><i class="icon-download4"></i></a>`;
+
+                    wp += `<div class="media" style="position: absolute; bottom: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">`;
+                    wp += `   <div class="mr-2">`;
+                    wp += `       <a href="../../../../global_assets/images/placeholders/placeholder.jpg">`;
+
+// Check if the profile picture is set to the default URL
+                    if (wallpaper.user.profile_picture === "https://cdn-icons-png.flaticon.com/512/3135/3135715.png") {
+                        wp += `<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle" width="40" height="40" alt="">`;
+                    } else {
+                        wp += `<img src="{{ asset('images/profiles') }}/${wallpaper.user.profile_picture}" class="rounded-circle" width="40" height="40" alt="">`;
+                    }
+
+                    wp += `       </a>`;
+                    wp += `   </div>`;
+                    wp += `   <div class="body">`;
+                    wp += `       <div class="mt-2">${wallpaper.user.name}</div>`;
+                    wp += `   </div>`;
+                    wp += `</div>`;
+
                     wp +=  '</div>'
                     wp +=  '</div>'
                     wp +=  '</div>';
@@ -138,8 +158,25 @@
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
                     wp += `<span class="badge badge-warning" style="position: absolute; top: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">${wallpaper.category}</span>`
                     wp +=  `<button type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1" data-toggle="modal" data-target="#${wallpaper.uuid}"><i class="icon-eye"></i> </button>`
-                    wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple editWallpaper m-1" id="${wallpaper.id}" data-toggle="modal" data-target="#modal_edit_wallpaper"><i class="icon-pencil"></i> </button>`
-                    wp +=  `<button class="btn btn-outline bg-white text-white border-white border-2 legitRipple deleteWallpaper m-1" id="${wallpaper.id}"><i class="icon-trash"></i> </button>`
+                    wp += `<a href="{{ asset('uploads') }}/${wallpaper.image}" download class="btn btn-outline bg-white text-white border-white border-2 legitRipple m-1"><i class="icon-download4"></i></a>`;
+                    wp += `<div class="media" style="position: absolute; bottom: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">`;
+                    wp += `   <div class="mr-2">`;
+                    wp += `       <a href="../../../../global_assets/images/placeholders/placeholder.jpg">`;
+
+// Check if the profile picture is set to the default URL
+                    if (wallpaper.user.profile_picture === "https://cdn-icons-png.flaticon.com/512/3135/3135715.png") {
+                        wp += `<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle" width="40" height="40" alt="">`;
+                    } else {
+                        wp += `<img src="{{ asset('images/profiles') }}/${wallpaper.user.profile_picture}" class="rounded-circle" width="40" height="40" alt="">`;
+                    }
+
+                    wp += `       </a>`;
+                    wp += `   </div>`;
+                    wp += `   <div class="body">`;
+                    wp += `       <div class="mt-2">${wallpaper.user.name}</div>`;
+                    wp += `   </div>`;
+                    wp += `</div>`;
+
                     wp +=  '</div>'
                     wp +=  '</div>'
                     wp +=  '</div>';

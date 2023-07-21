@@ -55,7 +55,7 @@
 
 
  .bg-dark {
-     background-color: white !important;
+     background-color: #111 !important;
  }
 
 
@@ -67,10 +67,11 @@
  .nav-item {
      font-size: 18px;
      padding: 10px;
+     
  }
 
  .nav-item a:hover {
-     color: #DC3545;
+     color: #ff8000;
  }
 
  .btn-slide {
@@ -127,13 +128,13 @@
      content: '';
      width: 150px;
      height: 3px;
-     background: #DC3545;
+     background: #ff8000;
      display: block;
      margin: 10px auto;
  }
 
  .contact-info{
-     background: #DC3545;
+     background: #ff8000;
      filter: brightness(90%);
  }
 
@@ -166,7 +167,7 @@
 
 
  .foot-icon i:hover{
-     color: #DC3545;
+     color: #ff8000;
  }
 
  .shadow-effect{
@@ -174,7 +175,7 @@
  }
 
  .shadow-effect:hover{
-     box-shadow: -6px 6px 0 0 #DC3545;
+     box-shadow: -6px 6px 0 0 #ff8000;
  }
 
  /* News */

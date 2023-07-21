@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +9,8 @@
     
     <x-sg-frontnavbar />
     <x-sg-frontslider />
+    <x-sg-frontwallpaper />
     <x-sg-frontfooter />
-    
     
     <x-sg-frontjs />
 

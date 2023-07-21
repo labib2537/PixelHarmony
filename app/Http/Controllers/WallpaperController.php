@@ -36,7 +36,7 @@ class WallpaperController extends Controller
 
     public function fetchAllData()
     {
-        $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
+        $wallpapers = Wallpaper::with('user')->orderBy('id', 'desc')->get();
         return response()->json($wallpapers);
     }
 
@@ -60,6 +60,12 @@ class WallpaperController extends Controller
         return view('user.view');
     }
 
+    // public function displayFront()
+    // {
+    //     $wallpapers = Wallpaper::orderBy('id', 'desc')->get();
+    //     return view('welcome', compact('wallpapers'));
+    // }
+
     
 
     public function displayMyWallpaper()
@@ -73,7 +79,7 @@ class WallpaperController extends Controller
     // Ajax live search
     public function search(Request $request)
     {
-        $wallpaper = Wallpaper::where('wallpaper_name', 'like', '%'.$request->search.'%')
+        $wallpaper = Wallpaper::with('user')->where('wallpaper_name', 'like', '%'.$request->search.'%')
                    ->orWhere('category','like','%'.$request->search.'%')       
                    ->orderBy('id', 'desc')
                    ->get();

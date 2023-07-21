@@ -14,7 +14,7 @@ use App\Http\Controllers\WallpaperController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route::get('/', [WallpaperController::class, 'displayFront'])->name('display_front_wallpaper');
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,9 +24,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/edit', [ProfileController::class, 'edit2'])->name('profile.edit2');
+    Route::post('/profile/update', [ProfileController::class, 'update2'])->name('profile.update2');
+    Route::get('/profile/picture', [ProfileController::class, 'addProfileImage'])->name('profile.add_image');
+    Route::post('/profile/picture_add', [ProfileController::class, 'pictureInsert'])->name('profile.pictureInsert');
+    Route::get('/profile/picture_edit', [ProfileController::class, 'editProfileImage'])->name('profile.edit_image');
+    Route::post('/profile/picture_update', [ProfileController::class, 'pictureUpdate'])->name('profile.pictureUpdate');
+    Route::post('/profile/picture_remove', [ProfileController::class, 'pictureRemove'])->name('profile.imageRemove');
+
+
 
 
 });
@@ -43,6 +53,7 @@ Route::post('/store', [WallpaperController::class, 'store'])->name('store_wallpa
 Route::get('/allWallpaper', [WallpaperController::class, 'fetchAllData'])->name('fetchAll_wallpaper');
 Route::get('/myWallpaper', [WallpaperController::class, 'fetchMyData'])->name('fetchMy_wallpaper');
 Route::get('/all_wallpaper', [WallpaperController::class, 'display'])->name('display_wallpaper');
+
 Route::get('/my_wallpaper', [WallpaperController::class, 'displayMyWallpaper'])->name('display_my_wallpaper');
 Route::get('/search', [WallpaperController::class, 'search'])->name('search');
 Route::get('/searchWallpaper', [WallpaperController::class, 'searchWallpaper'])->name('search_wallpaper');
