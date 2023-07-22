@@ -103,6 +103,15 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+    
+    public function userProfile(Request $req)
+    {
+        $user = User::find($req->id);
+        return view('profile.showProfile', compact('user'));
+    }
+    
+    
+
 
     public function pictureInsert(Request $req)
     {

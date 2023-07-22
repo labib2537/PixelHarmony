@@ -1,6 +1,5 @@
 <x-sg-master>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
-
 {{-- <form action="{{route('search_wallpaper')}}" method="get">
     @csrf --}}
 <div class="input-group mb-4 search-bar">
@@ -85,16 +84,18 @@
 
                     wp += `<div class="media" style="position: absolute; bottom: 10px; left: 10px; z-index: 1; font-size: 15px; padding: 10px;">`;
                     wp += `   <div class="mr-2">`;
-                    wp += `       <a href="../../../../global_assets/images/placeholders/placeholder.jpg">`;
+                    wp += `<form action="{{ route('profile.user') }}" method="post">@csrf`;
+                    wp += '<input type="hidden" name="id" value="' + wallpaper.user.id + '">';
 
-// Check if the profile picture is set to the default URL
+                    wp += '<button type="submit" style="border: none; background-color: transparent; width: 40px; height: 40px; padding: 0; overflow: hidden; border-radius: 50%; position: relative;">';
+
                     if (wallpaper.user.profile_picture === "https://cdn-icons-png.flaticon.com/512/3135/3135715.png") {
                         wp += `<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="rounded-circle" width="40" height="40" alt="">`;
                     } else {
                         wp += `<img src="{{ asset('images/profiles') }}/${wallpaper.user.profile_picture}" class="rounded-circle" width="40" height="40" alt="">`;
                     }
 
-                    wp += `       </a>`;
+                    wp += `   </button></form>`;
                     wp += `   </div>`;
                     wp += `   <div class="body">`;
                     wp += `       <div class="mt-2">${wallpaper.user.name}</div>`;
