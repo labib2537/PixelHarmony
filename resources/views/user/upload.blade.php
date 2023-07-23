@@ -51,6 +51,7 @@
                                                 <option>Digital Art</option>
 												<option>Technology and Gadgets</option>
 												<option>Sports and Fitness</option>
+                                                <option>Games and Animations</option>
 
 										
 										</select>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Wallpaper;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,11 @@ class WallpaperController extends Controller
             $wallpaper->image = $filename;
          }
          $wallpaper->save();
+
+         $notify = new Notification();
+         $notify->user_id =  auth()->user()->id;
+         $notify->save();
+
          return response()->json([
             'status' => 200
          ]);

@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/picture_update', [ProfileController::class, 'pictureUpdate'])->name('profile.pictureUpdate');
     Route::post('/profile/picture_remove', [ProfileController::class, 'pictureRemove'])->name('profile.imageRemove');
     Route::post('/profile/user', [ProfileController::class, 'userProfile'])->name('profile.user');
+    Route::get('/profile/user/{id}', [ProfileController::class, 'showUser'])->name('profile.user2');
 
 
 

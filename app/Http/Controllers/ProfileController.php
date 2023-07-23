@@ -110,7 +110,11 @@ class ProfileController extends Controller
         return view('profile.showProfile', compact('user'));
     }
     
-    
+    public function showUser($id)
+    {
+        $user = User::find($id);
+        return view('profile.showProfile', compact('user'));
+    }
 
 
     public function pictureInsert(Request $req)
