@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WallpaperController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/picture_remove', [ProfileController::class, 'pictureRemove'])->name('profile.imageRemove');
     Route::post('/profile/user', [ProfileController::class, 'userProfile'])->name('profile.user');
     Route::get('/profile/user/{id}', [ProfileController::class, 'showUser'])->name('profile.user2');
+    
+
 
 
 
@@ -61,7 +64,8 @@ Route::get('/searchWallpaper', [WallpaperController::class, 'searchWallpaper'])-
 Route::post('/delete', [WallpaperController::class, 'delete'])->name('delete_wallpaper');
 Route::post('/edit', [WallpaperController::class, 'edit'])->name('edit_wallpaper');
 Route::post('/update', [WallpaperController::class, 'update'])->name('update_wallpaper');
-    
+Route::get('/notify/update/{id}', [NotificationController::class, 'notifyUpdate'])->name('notify.click');   
+Route::get('/notify/all', [NotificationController::class, 'allNotification'])->name('notification.all');   
     
 })->middleware(['auth', 'verified']);
 

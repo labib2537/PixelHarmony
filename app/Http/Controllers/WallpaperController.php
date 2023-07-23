@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Wallpaper;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -33,6 +34,9 @@ class WallpaperController extends Controller
          $notify = new Notification();
          $notify->user_id =  auth()->user()->id;
          $notify->save();
+         
+         $userIds = User::all();
+         $notify->users()->attach($userIds);
 
          return response()->json([
             'status' => 200
