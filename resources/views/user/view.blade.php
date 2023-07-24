@@ -74,7 +74,7 @@
                 console.log(res);
                 let wp = "";
                 $.each(res, function(key, wallpaper) {
-                    wp += '<div class="col-4 mb-3">'
+                    wp += '<div class="col-xl-4 col-md-12 col-lg-6 col-sm-12 mb-3">'
                     wp += '<div class="card-img-actions">'
                     wp += `<img class="card-img-top img-fluid" src="{{ asset('uploads') }}/${wallpaper.image}" alt="${wallpaper.wallpaper_name}">`
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
@@ -153,7 +153,7 @@
                     }else{
                         let wp = "";
                 $.each(res, function(key, wallpaper) {
-                    wp += '<div class="col-4 mb-3">'
+                    wp += '<div class="col-xl-4 col-md-12 col-lg-6 col-sm-12 mb-3">'
                     wp += '<div class="card-img-actions">'
                     wp += `<img class="card-img-top img-fluid" src="{{ asset('uploads') }}/${wallpaper.image}" alt="${wallpaper.wallpaper_name}">`
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'

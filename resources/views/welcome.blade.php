@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <x-sg-title /> 
    <x-sg-frontstyle />
 </head>
 

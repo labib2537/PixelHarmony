@@ -65,6 +65,7 @@ Route::post('/delete', [WallpaperController::class, 'delete'])->name('delete_wal
 Route::post('/edit', [WallpaperController::class, 'edit'])->name('edit_wallpaper');
 Route::post('/update', [WallpaperController::class, 'update'])->name('update_wallpaper');
 Route::get('/notify/update/{id}', [NotificationController::class, 'notifyUpdate'])->name('notify.click');   
+Route::get('/notify/update2/{id}', [NotificationController::class, 'notifyUpdate2'])->name('notify.click2');  
 Route::get('/notify/all', [NotificationController::class, 'allNotification'])->name('notification.all');   
     
 })->middleware(['auth', 'verified']);

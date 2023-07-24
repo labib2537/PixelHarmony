@@ -22,6 +22,14 @@ class NotificationController extends Controller
     return redirect()->back();
     }
 
+    public function notifyUpdate2(Request $req)
+    {
+
+        auth()->user()->notifications()->where('id', $req->id)->wherePivot('is_read', false)->update(['is_read' => true]);
+
+        return redirect()->back();
+    }
+
     public function allNotification()
     { 
         $user = auth()->user();
