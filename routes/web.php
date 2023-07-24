@@ -59,14 +59,19 @@ Route::get('/myWallpaper', [WallpaperController::class, 'fetchMyData'])->name('f
 Route::get('/all_wallpaper', [WallpaperController::class, 'display'])->name('display_wallpaper');
 
 Route::get('/my_wallpaper', [WallpaperController::class, 'displayMyWallpaper'])->name('display_my_wallpaper');
+Route::get('/trash_wallpaper', [WallpaperController::class, 'trashWallpaper'])->name('fetchTrash_wallpaper');
+Route::post('/permanent_delete_wallpaper', [WallpaperController::class, 'permanentDelete'])->name('deletePermanent_wallpaper');
+Route::post('/restore_wallpaper', [WallpaperController::class, 'restoreWallpaper'])->name('restore.wallpaper');
 Route::get('/search', [WallpaperController::class, 'search'])->name('search');
 Route::get('/searchWallpaper', [WallpaperController::class, 'searchWallpaper'])->name('search_wallpaper');
 Route::post('/delete', [WallpaperController::class, 'delete'])->name('delete_wallpaper');
 Route::post('/edit', [WallpaperController::class, 'edit'])->name('edit_wallpaper');
 Route::post('/update', [WallpaperController::class, 'update'])->name('update_wallpaper');
+Route::get('/wallpaper/trash', [WallpaperController::class, 'trash'])->name('wallpaper.trash'); 
 Route::get('/notify/update/{id}', [NotificationController::class, 'notifyUpdate'])->name('notify.click');   
 Route::get('/notify/update2/{id}', [NotificationController::class, 'notifyUpdate2'])->name('notify.click2');  
 Route::get('/notify/all', [NotificationController::class, 'allNotification'])->name('notification.all');   
+
     
 })->middleware(['auth', 'verified']);
 

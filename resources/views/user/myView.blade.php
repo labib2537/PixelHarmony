@@ -2,8 +2,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
 
 <div class="text-center">
-    <h5 class="mb-3">My WallPapers</h5>
+<span class="d-inline-block border-bottom border-warning"><h4>My Wallpapers<h4></span>
 </div>
+
+<a href="{{route('wallpaper.trash')}}" class="btn bg-danger-400 btn-labeled btn-labeled-left rounded-round legitRipple mb-3"><b><i class="icon-trash"></i></b> Trash</a>
 
 <!-- edit form -->
 <div id="modal_edit_wallpaper" class="modal fade">
@@ -129,7 +131,7 @@
                 console.log(res);
                 let wp = "";
                 $.each(res, function(key, wallpaper) {
-                    wp += '<div class="col-4 mb-3">'
+                    wp += '<div class="col-xl-4 col-md-12 col-lg-6 col-sm-12 mb-3">'
                     wp += '<div class="card-img-actions">'
                     wp += `<img class="card-img-top img-fluid" src="{{ asset('uploads') }}/${wallpaper.image}" alt="${wallpaper.wallpaper_name}">`
                     wp +=  '<div class="card-img-actions-overlay card-img-top">'
@@ -168,12 +170,12 @@
            let id = $(this).attr('id');
            Swal.fire({
           title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          text: "Your wallpaper will move into trash!",
         //   icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonText: 'Yes, move it!'
         }).then((result) => {
             
           if (result.isConfirmed) {
@@ -186,8 +188,8 @@
                },
                success: function(res){
                 Swal.fire(
-                   'Deleted!',
-                   'Wallpaper has been Deleted Successfully',
+                   'Trashed!',
+                   'Wallpaper has been moved into trash',
                    'Success'
                  )
                  fetchMyWallpaper();

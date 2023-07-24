@@ -117,12 +117,18 @@ class WallpaperController extends Controller
     public function delete(Request $request)
     {
         $wallpaper = Wallpaper::find($request->id);
+        $wallpaper->delete();
+    }
+
+    public function permanentDelete(Request $request)
+    {
+        $wallpaper = Wallpaper::withTrashed()->find($request->id);
         $imagePath = public_path('uploads/'.$wallpaper->image);
         if(file_exists($imagePath))
         {
             unlink($imagePath);
         }
-        $wallpaper->delete();
+        $wallpaper->forceDelete();
     }
 
     public function edit(Request $request)
@@ -142,6 +148,24 @@ class WallpaperController extends Controller
             'status' => 200
          ]);
         
+    }
+
+    public function trashWallpaper(Request $req)
+    {
+        $wallpapers = Wallpaper::onlyTrashed()->get();
+        return response()->json($wallpapers);
+    }
+
+    public function trash()
+    {
+        return view('user.trash');
+    }
+
+    public function restoreWallpaper(Request $req)
+    {
+        $wallpaper = Wallpaper::withTrashed()->where('id',$req->id);
+        $wallpaper->restore();
+
     }
 
 }

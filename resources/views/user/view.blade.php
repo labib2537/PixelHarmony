@@ -3,11 +3,11 @@
 {{-- <form action="{{route('search_wallpaper')}}" method="get">
     @csrf --}}
 <div class="input-group mb-4 search-bar">
-<input type="text" id="searchInput" name="searchInput" class="form-control form-control-lg search-input mr-3" placeholder="Search wallpapers">
+<input type="text" id="searchInput" name="searchInput" class="form-control form-control-lg search-input mr-2" placeholder="Search wallpapers">
   <!-- <div class="input-group-append"> -->
   
-    <button class="btn btn-warning search-button" type="submit" id="searchButton">
-      <i class="fas fa-search mr-2"></i>Find Your Wallpaper
+    <button class="btn bg-warning-400 btn-labeled btn-labeled-left rounded-round legitRipple search-button" type="submit" id="searchButton">
+        <b><i class="fas fa-search"></i></b>Find Your Wallpaper
     </button>
    
   <!-- </div> -->
